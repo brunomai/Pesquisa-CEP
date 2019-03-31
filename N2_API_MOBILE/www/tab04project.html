@@ -1,0 +1,252 @@
+<!DOCTYPE HTML>
+<HTML>
+
+<HEAD>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!-- A biblioteca bundle já contem os arquivos JS do Bootstrap, Popper, e jQuery.
+    <script src="js/bootstrap.bundle.js"></script>-->
+    <title>FTT EC LP3 N2!!</title>
+    <LINK REL="stylesheet" HREF="css/bootstrap.css" />
+    <STYLE>
+        .center-txt {
+            text-align: center;
+            color: black;
+            width: 90px;
+            padding: 4px;
+            margin:0;
+            border:0;
+        }
+        .button-selected {
+            background-color: #343a40;
+            color: white;
+            border-radius: 15px;
+        }       
+        .width-button-bar {
+            text-align: center;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            margin-right: 0;
+            margin-left: 0;
+            
+        }
+        .bottom-button-bar {
+            margin:0;
+            padding:0;
+            border:0;
+            width: 100%;
+        }
+        .icon-font {
+            font-size: 40px;   
+        }
+        main {
+            padding-top: 56px;
+            padding-bottom: 50px;
+        }
+        .image {
+         width: 60px;
+         height: 59px;       
+        
+         background-image: url(mapa.png);
+         background-repeat: "no-repeat";
+         background-size: cover;
+         border: 0;
+         outline: none;
+        }
+    </STYLE>
+</HEAD>
+
+<BODY lang="pt-br">
+
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <a class="navbar-brand" href="#">&#x1F981; FTT EC LP3 N2!!!</a>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <div class="navbar-nav float-right text-right pr-3">
+                <a class="nav-item nav-link" href="index.html">Splash</a>
+                <a class="nav-item nav-link" href="http://www.fundacaosalvadorarena.org.br/" target="newpage">CEFSA</a>
+                <a class="nav-item nav-link" href="about.html">Sobre</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container" id="aluno">
+   <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+  <div class="row">
+    <div class="col-md-8">
+      <form class="form-horizontal" role="form">
+        <fieldset>
+
+          <!-- Form Name -->
+          <legend>Address Details</legend>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="textinput">Rua</label>
+            <div class="col-sm-10">
+              <input id="logradouro" disabled = "true" type="text" placeholder="Rua" class="form-control">
+            </div>
+          </div>
+          
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="textinput">Complem.</label>
+            <div class="col-sm-10">
+              <input id="complemento" disabled = "true" placeholder="Complemento" class="form-control">
+            </div>
+          </div>
+          
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="textinput">Bairro</label>
+            <div class="col-sm-10">
+              <input id="bairro" disabled = "true" placeholder="Bairro" class="form-control">
+            </div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="textinput">Cidade</label>
+            <div class="col-sm-4">
+              <input id="cidade"disabled = "true" placeholder="Cidade" class="form-control">
+            </div>
+                
+              
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="textinput">Estado</label>
+            <div class="col-sm-4">
+              <input id="uf" type="text" disabled = "true" placeholder="Estado" class="form-control">
+            </div>
+          </div>
+
+            <label class="col-sm-2 control-label" for="textinput">CEP</label>
+            <div class="col-sm-4">
+              <input id="cep" type="text"  placeholder="CEP" class="form-control">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <div class="pull-right">
+                <button type="button" onclick="getAddress();" class="btn btn-primary">Pesquisar</button>
+                <button type="button" onclick="initMap();" class="btn btn-primary">Mapear</button>
+              </div>
+            </div>
+            <br><br>             
+             <div id="map" style="height: 400px; margin-left: 10px; "> 
+             </div>
+          </div>                       
+        </fieldset>
+      </form>
+    </div><!-- /.col-lg-12 -->
+</div><!-- /.row -->
+
+
+<script>
+
+
+function getAddress(){
+    var xhr = new XMLHttpRequest();
+    var cep = document.getElementById("cep").value;
+	
+	var url = "https://viacep.com.br/ws/" + cep +"/json/";
+
+            xhr.onload = function() {
+                if (xhr.status >= 200 && xhr.status < 300) {
+
+                var obj = JSON.parse(xhr.responseText);
+	            
+	            document.getElementById("logradouro").value = obj.logradouro;
+	            document.getElementById("complemento").value = obj.complemento;
+	            document.getElementById("bairro").value = obj.bairro;
+	            document.getElementById("cidade").value = obj.localidade;
+	            document.getElementById("uf").value = obj.uf;
+                }
+                else {
+                    
+                    let error_message= "Ops! Erro!!!<br>" + xhr.statusText;
+                    console.log(error_message);
+                } 
+            };
+
+            xhr.open('GET', url);
+            xhr.send();          
+	
+}
+    
+ function initMap() {
+            var directionsService = new google.maps.DirectionsService;
+            var directionsDisplay = new google.maps.DirectionsRenderer;
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 7,
+                center: {lat: 41.85, lng: -87.65}
+            });
+            directionsDisplay.setMap(map);
+            calculateAndDisplayRoute(directionsService, directionsDisplay);
+        }
+
+        function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+
+            url = 'https://maps.googleapis.com/maps/api/geocode/json?address='+ document.getElementById('cidade').value+ ',' + document.getElementById('bairro').value + ',' + document.getElementById('logradouro').value+ ',' + document.getElementById('complemento').value + '&key=AIzaSyC0cE8tMlrRA4v6NmZ5Nq3Cz96AK_CXXwQ';
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.onload = function() {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    var json = JSON.parse(xhr.responseText);
+                    if (json.results && json.results[0])
+                    {
+                        /*debugger;*/
+                        let location = json.results[0].geometry.location;
+
+                        var map = new google.maps.Map(
+                            document.getElementById('map'), {zoom: 12, center: location});
+                        
+                        var marker = new google.maps.Marker({position: location, map: map});
+                    }
+
+                } else {                    
+                    console.error("Could not get Map");
+                }
+            };
+
+            xhr.open('GET', url);
+            xhr.send();
+        }       
+        </script>
+        
+    </main>
+
+    <nav class="navbar fixed-bottom navbar-light bg-light width-button-bar">
+        <div class="row w-100 bottom-button-bar">
+            <div class="col-sm center-txt"><b onclick='window.location="tab01news.html"'>News<br><span class="icon-font">&#x1f4f0;</span></b>
+            </div>
+            <div class="col-sm center-txt"><b onclick='window.location="tab02map.html"'>Map<br><span class="icon-font">&#x1f4cc;</span></b>
+            </div>
+            <div class="col-sm center-txt"><b onclick='window.location="tab03todo.html"'>Todo<br><span class="icon-font">&#x1F4DD;</span></b>
+            </div>
+            <div class="col-sm center-txt button-selected"><b onclick='window.location="tab04project.html"'>Pesquisa/Mapeia CEP<br><img class="image"></b>
+            </div>
+        </div>
+    </nav>
+</BODY>
+<!-- carga de scripts do Bootstrap, JQuery, Popper -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0cE8tMlrRA4v6NmZ5Nq3Cz96AK_CXXwQ"></script>
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0cE8tMlrRA4v6NmZ5Nq3Cz96AK_CXXwQ&callback=initMap">
+</script>
+
+</HTML>
